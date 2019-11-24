@@ -127,13 +127,32 @@
 body{
 	background-color: #EEE;
 }
-#myImg{
-	height: 75px;
-	width: 75px;
-}
 #container{
 	background-color: #FFF;
 	padding: 12px;
-	height: 100%;
 	margin: 12px;
+}
+.item{
+	width: 200px;
+	background-color: #DDD;
+	padding: 4px;
+	float: left;
+	margin-right: 4px;
+}
+.item img{
+	width: 100%;
+}
+.item .name{
+	font-size: 24px;
+}
+.item .price{
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+/*//////////////
+TOGGLE VISIBILITY
+////////////////*/
+.item .more-info{
+	display: none;
 }

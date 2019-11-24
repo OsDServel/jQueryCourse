@@ -240,15 +240,67 @@
 ///////////////
 //SETTING UP STORE ITEMS
 ////////////////////
-
+// CREATING ITEMS DYNAMICALLY
+/////////////////////
+//REMOVING ELEMENTS
+////////////////
+//TOGGLE VISIBILITY
+/////////////////
+//FADE AND SLIDE
+//////////////
 $(document).ready(function(){
+	$('#button-create-item').on('click', function(){
+		let name= $('#input-create-item').val();
+		let html= '';
+
+		html+= '<div class="item">';
+		html+= '<div class="name">' +name + '</div>'
+		html+= '<img id="myImg" src="img/beach.jpg">';
+
+		html+= '<div class="description">Lorem ipsum dolor sit amet, consectur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>';
+		html+= '<div class="price">499</div>';
+		html+= '<button class="item-add">Add to cart</button>';
+		html+= '<button class="item-remove">Remove</button><br>';
+
+		html+= '<a class="more-info-link" href="#">More info</a>';
+		html+= '<div class="more-info">Lorem ipsum dolor sit amet</div></div>';
+
+		$('#container').prepend(html);
+	});
+//code to toggle more-info visibility
+	$('#container').on('click', '.more-info-link', function(event){
+		// $('.more-info').toggle(); // having this code makes it so that it appears, but it does not fegister for new items. however it does register for all boxes, when the original is clicked... but you cant click the new boxes to toggle visibility.
+		event.preventDefault(); // by adding 'event.preventDefault()' it triggers the function in a way that it will not scroll back up the page everytime the link is clicked.
+
+		$(this).parent().find('.more-info').slideToggle('slow');
+	})
+
+	$('#container').on('click', '.item-remove', function(){
+		$(this).parent().remove(); //so when we click, we want the elemenet to grab its 'Parent', which is 'dic' class of 'item', to remove itself.
 	
+	})
 });
+//NOTE: you can add 'append', which will add items to the end of the list. Or use 'prepend' which will add items to the beggining of the list.
+
+//NOTE: we can use 'empty()', instead of 'remove()', only problem with that is that instead of removing all traces of the HTML, is simply empties out the div, leaving an empty div in the process, which is not very pretty, and not what we want.
+
+//NOTE: we added the event listener to ('#container'), even though we want to use '.item-remove', as the 'delegate'. Otherwise, '.item-remove' is not registered when the DOM is created, hence the next items created will have the class of '.item-remove', but not the funtionality of the button.
+
+//NOTE: 1000 as a parameter in toggle(), results in the animation taking 1 second. Anything less is but a fraction of a second. You may also pass in a string of, 'fast', or 'slow', as a set speed for the animation
+
+//NOTE: AGAIN, if you dont want to use TWO buttons to 'fadeIn()', or 'fadeOut()', like 'hide()' or 'show()', you can use 'fadeToggle()', which works as needed.
 
 
+//NOTE: jQuery methods
 
+//show()
+//hide()
+//toggle()
 
+//fadeIn()
+//fadeOut()
+//fadeToggle()
 
-
-
-
+//slideIn()
+//slideOut()
+//slideToggle()
