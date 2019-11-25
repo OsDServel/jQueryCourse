@@ -252,9 +252,7 @@
 ///////////////
 //AJAX
 ////////////
-$(document).ready(function(){
-	$('#button-create-item').on('click', function(){
-		let name= $('#input-create-item').val();
+function addItem(name, description, price, moreInfo){
 		let html= '';
 
 		html+= '<div class="item">';
@@ -270,7 +268,27 @@ $(document).ready(function(){
 		html+= '<div class="more-info">Lorem ipsum dolor sit amet</div></div>';
 
 		$('#container').prepend(html);
-	});
+}
+
+$(document).ready(function(){
+	// $('#button-create-item').on('click', function(){
+	// 	let name= $('#input-create-item').val();
+	// 	let html= '';
+
+	// 	html+= '<div class="item">';
+	// 	html+= '<div class="name">' +name + '</div>'
+	// 	html+= '<img id="myImg" src="img/beach.jpg">';
+
+	// 	html+= '<div class="description">Lorem ipsum dolor sit amet, consectur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>';
+	// 	html+= '<div class="price">499</div>';
+	// 	html+= '<button class="item-add">Add to cart</button>';
+	// 	html+= '<button class="item-remove">Remove</button><br>';
+
+	// 	html+= '<a class="more-info-link" href="#">More info</a>';
+	// 	html+= '<div class="more-info">Lorem ipsum dolor sit amet</div></div>';
+
+	// 	$('#container').prepend(html);
+	// });
 //code to toggle more-info visibility
 	$('#container').on('click', '.more-info-link', function(event){
 		// $('.more-info').toggle(); // having this code makes it so that it appears, but it does not fegister for new items. however it does register for all boxes, when the original is clicked... but you cant click the new boxes to toggle visibility.
@@ -286,10 +304,26 @@ $(document).ready(function(){
 	$('#container').on('click', '.item-remove', function(){
 		$(this).parent().remove(); //so when we click, we want the elemenet to grab its 'Parent', which is 'dic' class of 'item', to remove itself.
 	
-	})
-	$.ajax('data/item.json', function(response){
-		console.log(response);
 	});
+	$.ajax('data/item.json')
+	// fuction(response){
+	// 	console.log(response);
+	// })
+	.done(function(response){
+		// console.log('hello!');
+		let items= response.items;
+		items.forEach(function(item){
+			addItem(item.name, item.description, item.price, item.moreInfo);
+		});
+	})
+	.fail(function(request, errorType, errorMessage){
+		console.log(errorMessage);
+
+	})
+	.always(function(){
+
+	})
+
 });
 //NOTE: you can add 'append', which will add items to the end of the list. Or use 'prepend' which will add items to the beggining of the list.
 
