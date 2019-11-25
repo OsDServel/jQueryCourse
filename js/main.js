@@ -248,6 +248,10 @@
 /////////////////
 //FADE AND SLIDE
 //////////////
+//ANIMATE
+///////////////
+//AJAX
+////////////
 $(document).ready(function(){
 	$('#button-create-item').on('click', function(){
 		let name= $('#input-create-item').val();
@@ -273,12 +277,19 @@ $(document).ready(function(){
 		event.preventDefault(); // by adding 'event.preventDefault()' it triggers the function in a way that it will not scroll back up the page everytime the link is clicked.
 
 		$(this).parent().find('.more-info').slideToggle('slow');
+		$(this).animate({"opacity": 0, "margin-left": 10}, 'fast')
+	//"we need to pass an object, with the properties we want to change"
+		$(this).animate({"opacity": 1.0, "margin-left": 0}, 'fast')
+
 	})
 
 	$('#container').on('click', '.item-remove', function(){
 		$(this).parent().remove(); //so when we click, we want the elemenet to grab its 'Parent', which is 'dic' class of 'item', to remove itself.
 	
 	})
+	$.ajax('data/item.json', function(response){
+		console.log(response);
+	});
 });
 //NOTE: you can add 'append', which will add items to the end of the list. Or use 'prepend' which will add items to the beggining of the list.
 
