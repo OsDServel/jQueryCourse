@@ -252,15 +252,18 @@
 ///////////////
 //AJAX
 ////////////
-function addItem(name, description, price, moreInfo){
+//LOADING JSON
+/////////////
+function addItem(id, name, description, price, moreInfo){
 		let html= '';
 
-		html+= '<div class="item">';
+		html+= '<div class="item" data-id="' + id +'">';
+		//NOTE: make sure that you are paying attetion to when you are adding attribute names in this format. you can check the correct format by looking the color coded colors for the olus signs and attribute "id" and "name". for this example make sure that the attribute "id", was embraced in quotation marks.
 		html+= '<div class="name">' +name + '</div>'
 		html+= '<img id="myImg" src="img/beach.jpg">';
 
 		html+= '<div class="description">Lorem ipsum dolor sit amet, consectur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>';
-		html+= '<div class="price">499</div>';
+		html+= '<div class="price">'+ price +'</div>';
 		html+= '<button class="item-add">Add to cart</button>';
 		html+= '<button class="item-remove">Remove</button><br>';
 
@@ -305,7 +308,11 @@ $(document).ready(function(){
 		$(this).parent().remove(); //so when we click, we want the elemenet to grab its 'Parent', which is 'dic' class of 'item', to remove itself.
 	
 	});
-	$.ajax('data/item.json')
+	$.ajax('data/item.json', {
+		dataType: 'json',
+		contentType: 'application/json',
+		cache: false
+	})
 	// fuction(response){
 	// 	console.log(response);
 	// })
@@ -313,16 +320,26 @@ $(document).ready(function(){
 		// console.log('hello!');
 		let items= response.items;
 		items.forEach(function(item){
-			addItem(item.name, item.description, item.price, item.moreInfo);
+			addItem(item.id, item.name, item.description, item.price, item.moreInfo);
 		});
 	})
 	.fail(function(request, errorType, errorMessage){
 		console.log(errorMessage);
-
 	})
 	.always(function(){
 
 	})
+
+	$('#container').on('click', '.item-add', function(){
+		let id= $(this).parent().data('id');
+		console.log(id);
+		$.ajax('data/addToCart.json', {
+			type: 'post',
+			data: {id: id },
+			dataType: 'json',
+			contentType: 'application/json'
+		})
+	});
 
 });
 //NOTE: you can add 'append', which will add items to the end of the list. Or use 'prepend' which will add items to the beggining of the list.

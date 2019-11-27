@@ -156,3 +156,13 @@ TOGGLE VISIBILITY
 .item .more-info{
 	display: none;
 }
+
+/*////////////
+POST CALLS
+/////////////*/
+#cart-container{
+	width: 100%;
+	background-color: #000;
+	color: #FFF;
+	padding: 12px;
+}
