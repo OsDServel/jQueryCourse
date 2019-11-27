@@ -166,3 +166,10 @@ POST CALLS
 	color: #FFF;
 	padding: 12px;
 }
+
+/*///////////
+CHECKBOX FORM
+/////////////*/
+#newsletter-frequency{
+	display: none;
+}
